@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>OOJavaScript</title>
+</head>
+<body>
+<script>
+//匿名立即执行函数
+(function(){
+alert('hello');
+})();
+
+//也可以将第一对括号闭合在第二对之后
+(function(){alert('hello')}());
+
+//私有函数
+function outer(param){
+	function inner(input){
+		return input*2;
+	}
+	return 'Result is '+inner(param);
+}
+//函数标识法
+var outer = function (param) {
+	var inner = function(input){
+		return input*2;
+	}
+	return 'Result is '+inner(param);
+}
+//当调用全局函数outer()，私有函数inner也会在内部被调用，在outer以外,inner是不可见的。
+//私有函数有助于确保全局命名空间的纯净与私有性。
+
+//返回函数的函数
+function a(){
+	alert('a');
+	return function(){
+		alert('b');
+	};
+}
+a()();//a,b
+var b=a();//将a的执行结果赋值给b;
+b();//b
+//a()执行后弹出a,再返回一个弹出b的函数。返回的函数执行后会弹出b。
+</script>
+</body>
+</html>
