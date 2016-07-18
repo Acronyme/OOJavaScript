@@ -57,6 +57,61 @@ function F2(param){
 }
 var inner=F2(123);
 alert(inner());//124
+
+//循环中的闭包
+function Func(){
+	var arr=[],i;
+	for(i=0;i<3;i++){
+		arr[i]=function(){
+			return i;
+		}
+	}
+	return arr;
+}
+var arr=Func();
+console.log(
+arr[0](),//3
+arr[1](),//3
+arr[2]() //3
+)
+
+//更换为闭包形式
+function Func1(){
+	var arr=[],i;
+	for(var i=0;i<3;i++){
+		arr[i]=(function(x){
+			return function(){
+				return x;
+			}
+		}(i))
+	}
+	return arr;
+}
+var arr1=Func1();
+console.log(
+arr1[0](),//0
+arr1[1](),//1
+arr1[2]() //2
+)
+//不使用立即执行函数的实现
+function Func2(){
+	function binder(x){
+		return function(){
+			return x;
+		}
+	}
+	var arr=[],i;
+	for(i=0;i<3;i++){
+		arr[i]=binder(i);
+	}
+	return arr;
+}
+var arr2=Func2();
+console.log(
+arr2[0](),//0
+arr2[1](),//1
+arr2[2]() //2
+	)
 </script>
 </body>
 </html>
