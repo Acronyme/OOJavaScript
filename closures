@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>OOJavaScript</title>
+</head>
+<body>
+<script>
+//作用域链           
+//inner函数可以访问自身作用域的变量，也可以访问父级函数的作用域
+var global=1;
+function outer(){
+	var outer_local=2;
+	function inner(){
+		var inner_local=3;
+	    return inner_local+outer_local+global;
+	}
+	return inner();
+}                                               
+alert(outer())//6
+
+//F包含了局部变量b，b在全局空间中是不可见的
+var a='global variable';
+var F=function(){
+	var b='local variable';
+	var N=function(){
+		var c='inner local';
+	    return  b;
+	}
+   return N;
+}
+//b;//b is not defined
+
+var inner=F();
+alert(inner());//local variable
+
+
+//F()不返回函数，直接在函数体内创建一个新的全局函数inner()
+var inner;
+var F1=function(){
+	var b='local variable';
+	var N=function(){
+		return b;
+	}
+	//将N赋值给F,N定义于函数内部，有权访问F的作用域，即使inner为全局函数，也可以访问F的作用域
+	inner=N;
+}
+alert(inner());//local variable
+
+//F2返回内部函数N,执行inner会调用N,调用时param++已经执行过一次，因此函数绑定的是作用域而不是变量
+function F2(param){
+	var N=function(){
+		return param;
+	}
+	param++;
+	return N;
+}
+var inner=F2(123);
+alert(inner());//124
+</script>
+</body>
+</html>
