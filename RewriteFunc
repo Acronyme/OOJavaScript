@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>OOJavaScript</title>
+</head>
+<body>
+<script>
+//函数可以返回函数，因此可以用新的函数覆盖旧的
+function a(){
+	alert('A');
+	a=function(){
+		alert('B');
+	}
+}
+//第一次调用函数时候会弹出A,全局变量a会被重新定义，并赋予新的函数。再次调用时会弹出B
+//a();//A
+//a();//B
+
+var a=(function(){
+	function someSetup(){
+		var setup='done';
+		alert('done');
+	}
+	function actualWork(){
+		alert('worky');
+	}
+	someSetup();
+	return actualWork;
+}());//done
+//私有函数someSetup()和actualWork()
+//a为立即执行函数
+//第一次调用a,会调用someSetup(),并返回函数变量actualWork的引用
+//调用后返回值会重新赋值给a
+a();//worky
+
+
+
+var b=(function (){
+	function test1(){alert(1)};
+	function test2(){alert(2)};
+	function test3(){alert(3)};
+	test1();
+	return test2;
+}());//1
+b();//2
+b();//2
+b();//2
+
+</script>
+</body>
+</html>
