@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>OOJavaScript</title>
+</head>
+<body>
+<script>
+//getter与setter函数共享作用域
+var getValue,setValue;
+(function(){
+	var secret=0;
+	getValue=function(){
+		return secret;
+	};
+	setValue=function(v){
+		if(typeof v==='number'){
+			secret=v;
+		}
+	}
+})();
+//在即时函数中定义全局函数setValue与getValue,以此确保局部变量secret的不可直接访问。
+console.log(
+	getValue(),//0
+	setValue(120),
+	setValue(),
+	setValue(false),
+	getValue()//120
+	)
+
+//迭代器
+function next(arr){
+	var i=0;
+	return function(){
+		return arr[i++];
+	}
+}
+var nextEle=next(['first','second','final'])
+//只需重复调用就可以获取下一个元素
+console.log(
+nextEle(),//first
+nextEle(),//second 
+nextEle() //final		
+	)
+</script>
+</body>
+</html>
