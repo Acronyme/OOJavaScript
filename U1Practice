@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES6 Advanced Object</title>
+</head>
+<body>
+<script>
+'use strict'
+//U1T1
+function getRGB(str){
+  var arr=str.split('');
+  return `rgb(${parseInt((arr[1]+arr[2]),16).toString(10)},${parseInt((arr[3]+arr[4]),16).toString(10)},${parseInt((arr[5]+arr[6]),16).toString(10)})`
+}
+
+//T2
+console.log(getRGB('#00FFFF'));//rgb(0,255,255)
+console.log(
+parseInt(1e1),//10
+parseInt('1e1'),//1
+parseFloat('1e1'),//10
+isFinite(0/10),//true
+isFinite(20/0),//false
+isNaN(parseInt(NaN))//true
+	)
+//parseInt解析字符串时，遇到非数字会停止解析，因此1e1会在e处停止解析，而parseFloat只解析十进制，可以解析1e1
+//T3
+var a=1;
+function  f(){
+	function n(){
+		alert(a);
+	}
+	var a=2;
+	n();
+}
+f();//2
+
+
+</script>
+</body>
+</html>
